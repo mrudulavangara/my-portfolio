@@ -2285,7 +2285,7 @@ const portfolio = {
 
         <div
             class="project-card tilt"
-            onclick="openProject('hospital')"
+            onclick="openProject('Online Hospital Appointment System')"
         >
 
             <div class="project-number">
@@ -2306,10 +2306,6 @@ const portfolio = {
             <div class="tags">
 
                 <span class="tag">
-                    R
-                </span>
-
-                <span class="tag">
                     Full Stack
                 </span>
 
@@ -2322,7 +2318,7 @@ const portfolio = {
         </div>
 
 
-       
+      
 
 
         <!-- PROJECT 3 -->
