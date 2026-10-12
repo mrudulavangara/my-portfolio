@@ -1,0 +1,3551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>V. Mrudula | AI & ML Portfolio</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+:root{
+    --bg:#030712;
+    --purple:#8b5cf6;
+    --blue:#00d9ff;
+    --pink:#ec4899;
+    --white:#ffffff;
+    --text:#dce3f2;
+    --muted:#929bb2;
+    --glass:rgba(255,255,255,.045);
+    --border:rgba(255,255,255,.10);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:white;
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#030712;
+    z-index:999999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transition:1s;
+}
+
+.loader-ring{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.08);
+    border-top-color:var(--blue);
+    border-right-color:var(--purple);
+    animation:spin 1s linear infinite;
+}
+
+.loader-text{
+    margin-top:20px;
+    color:#8993aa;
+    letter-spacing:4px;
+    font-size:12px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(99,102,241,.10),
+            transparent 40%
+        ),
+        #030712;
+}
+
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.20;
+}
+
+.glow1{
+    width:450px;
+    height:450px;
+    background:#7c3aed;
+    top:-180px;
+    left:-150px;
+    animation:glowMove1 12s infinite alternate ease-in-out;
+}
+
+.glow2{
+    width:400px;
+    height:400px;
+    background:#06b6d4;
+    right:-150px;
+    top:30%;
+    animation:glowMove2 15s infinite alternate ease-in-out;
+}
+
+.glow3{
+    width:350px;
+    height:350px;
+    background:#db2777;
+    bottom:-150px;
+    left:35%;
+    animation:glowMove3 13s infinite alternate ease-in-out;
+}
+
+@keyframes glowMove1{
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(130px,100px);
+    }
+}
+
+@keyframes glowMove2{
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(-120px,80px);
+    }
+}
+
+@keyframes glowMove3{
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(100px,-100px);
+    }
+}
+
+.grid-bg{
+    position:absolute;
+    inset:0;
+    opacity:.18;
+
+    background-image:
+        linear-gradient(
+            rgba(139,92,246,.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(139,92,246,.08) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+        );
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   CURSOR
+===================================================== */
+
+.cursor{
+    position:fixed;
+    width:22px;
+    height:22px;
+    border:1px solid var(--blue);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:99999;
+    transform:translate(-50%,-50%);
+    transition:.2s;
+}
+
+.cursor-dot{
+    position:fixed;
+    width:5px;
+    height:5px;
+    background:var(--blue);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:99999;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 15px var(--blue);
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px;
+
+    padding:0 8%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    z-index:5000;
+
+    background:rgba(3,7,18,.62);
+
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    transition:.4s;
+}
+
+nav.scrolled{
+    height:65px;
+    background:rgba(3,7,18,.90);
+}
+
+.logo{
+    font-size:27px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.nav-links{
+    display:flex;
+    gap:32px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#bfc8db;
+    text-decoration:none;
+    font-size:14px;
+    position:relative;
+    transition:.3s;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    min-height:100vh;
+
+    padding:130px 9% 80px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:80px;
+
+    position:relative;
+}
+
+.hero-content{
+    max-width:700px;
+    z-index:2;
+}
+
+.hero-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    background:rgba(139,92,246,.08);
+
+    border:1px solid rgba(139,92,246,.25);
+
+    color:#bcaeff;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+
+    animation:fadeUp .8s ease;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    background:#22c55e;
+
+    border-radius:50%;
+
+    box-shadow:0 0 12px #22c55e;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.5);
+        opacity:.5;
+    }
+}
+
+.hero h1{
+    font-size:clamp(55px,8vw,105px);
+
+    line-height:.9;
+
+    letter-spacing:-4px;
+
+    margin-bottom:28px;
+
+    animation:fadeUp 1s ease;
+}
+
+.hero h1 .gradient{
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #a78bfa,
+            #00d9ff,
+            #ec4899,
+            #fff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:gradientMove 6s linear infinite;
+}
+
+@keyframes gradientMove{
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:300%;
+    }
+}
+
+.hero-role{
+    min-height:42px;
+
+    font-size:27px;
+
+    color:#d7dcef;
+
+    margin-bottom:20px;
+}
+
+.typing-cursor{
+    color:var(--blue);
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
+
+.hero-description{
+    color:var(--muted);
+
+    font-size:17px;
+
+    line-height:1.9;
+
+    max-width:650px;
+
+    animation:fadeUp 1.4s ease;
+}
+
+.hero-buttons{
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:35px;
+
+    animation:fadeUp 1.6s ease;
+}
+
+.btn{
+    position:relative;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 27px;
+
+    border-radius:40px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    cursor:pointer;
+}
+
+.btn::before{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    width:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    transition:.4s;
+
+    z-index:-1;
+}
+
+.btn:hover::before{
+    width:100%;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+
+    border-color:transparent;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,217,255,.15);
+}
+
+.btn-primary{
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            #6366f1
+        );
+
+    border:none;
+}
+
+
+/* =====================================================
+   HERO 3D
+===================================================== */
+
+.hero-visual{
+    width:430px;
+    height:430px;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    perspective:1200px;
+
+    flex-shrink:0;
+
+    transition:.3s;
+}
+
+.cube{
+    width:210px;
+    height:210px;
+
+    position:relative;
+
+    transform-style:preserve-3d;
+
+    animation:
+        cubeRotate 18s linear infinite,
+        cubeFloat 5s ease-in-out infinite;
+}
+
+.cube-face{
+    position:absolute;
+
+    width:210px;
+    height:210px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:1px solid rgba(0,217,255,.45);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.22),
+            rgba(0,217,255,.07)
+        );
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        inset 0 0 35px
+        rgba(0,217,255,.05),
+
+        0 0 35px
+        rgba(139,92,246,.12);
+}
+
+.cube-face span{
+    font-size:45px;
+
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            white,
+            var(--blue),
+            #a78bfa
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    text-shadow:
+        0 0 30px
+        rgba(0,217,255,.3);
+}
+
+.front{
+    transform:translateZ(105px);
+}
+
+.back{
+    transform:
+        rotateY(180deg)
+        translateZ(105px);
+}
+
+.right{
+    transform:
+        rotateY(90deg)
+        translateZ(105px);
+}
+
+.left{
+    transform:
+        rotateY(-90deg)
+        translateZ(105px);
+}
+
+.top{
+    transform:
+        rotateX(90deg)
+        translateZ(105px);
+}
+
+.bottom{
+    transform:
+        rotateX(-90deg)
+        translateZ(105px);
+}
+
+@keyframes cubeRotate{
+    from{
+        transform:
+            rotateX(-10deg)
+            rotateY(0);
+    }
+
+    to{
+        transform:
+            rotateX(350deg)
+            rotateY(360deg);
+    }
+}
+
+@keyframes cubeFloat{
+
+    0%,100%{
+        margin-top:0;
+    }
+
+    50%{
+        margin-top:-20px;
+    }
+}
+
+.orbit{
+    position:absolute;
+
+    border:
+        1px solid
+        rgba(0,217,255,.25);
+
+    border-radius:50%;
+
+    pointer-events:none;
+}
+
+.orbit1{
+    width:380px;
+    height:130px;
+
+    transform:
+        rotateX(65deg)
+        rotateZ(20deg);
+
+    animation:
+        orbit1 9s linear infinite;
+}
+
+.orbit2{
+    width:360px;
+    height:360px;
+
+    transform:
+        rotateY(65deg);
+
+    border-color:
+        rgba(139,92,246,.25);
+
+    animation:
+        orbit2 12s linear infinite;
+}
+
+@keyframes orbit1{
+    to{
+        transform:
+            rotateX(65deg)
+            rotateZ(380deg);
+    }
+}
+
+@keyframes orbit2{
+    to{
+        transform:
+            rotateY(425deg);
+    }
+}
+
+.floating-icon{
+    position:absolute;
+
+    padding:10px 14px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    backdrop-filter:blur(10px);
+
+    color:#bbaeff;
+
+    font-size:12px;
+
+    animation:
+        iconFloat 4s ease-in-out infinite;
+}
+
+.icon1{
+    top:50px;
+    left:20px;
+}
+
+.icon2{
+    right:10px;
+    top:100px;
+    animation-delay:1s;
+}
+
+.icon3{
+    bottom:55px;
+    left:30px;
+    animation-delay:2s;
+}
+
+.icon4{
+    bottom:80px;
+    right:20px;
+    animation-delay:3s;
+}
+
+@keyframes iconFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+.scroll-indicator{
+    position:absolute;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:#68728b;
+
+    font-size:11px;
+
+    letter-spacing:3px;
+}
+
+.scroll-line{
+    width:1px;
+
+    height:45px;
+
+    margin:10px auto 0;
+
+    background:
+        linear-gradient(
+            var(--blue),
+            transparent
+        );
+
+    animation:
+        scrollLine 2s infinite;
+}
+
+@keyframes scrollLine{
+
+    0%{
+        opacity:0;
+
+        transform:scaleY(0);
+
+        transform-origin:top;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:scaleY(1);
+
+        transform-origin:top;
+    }
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section{
+    padding:110px 9%;
+    position:relative;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:65px;
+}
+
+.section-label{
+    color:var(--blue);
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    margin-bottom:12px;
+}
+
+.section-heading h2{
+    font-size:45px;
+
+    margin-bottom:12px;
+}
+
+.section-heading h2 span{
+    color:var(--purple);
+}
+
+.section-heading p{
+    color:var(--muted);
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about-container{
+    max-width:950px;
+
+    margin:auto;
+
+    padding:50px;
+
+    background:var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:30px;
+
+    backdrop-filter:blur(15px);
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.5s;
+}
+
+.about-container:hover{
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(139,92,246,.35);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.25);
+}
+
+.about-container p{
+    color:#b9c2d5;
+
+    line-height:2;
+
+    font-size:17px;
+
+    text-align:center;
+}
+
+.stats{
+    max-width:900px;
+
+    margin:35px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.stat{
+    text-align:center;
+
+    padding:25px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:20px;
+}
+
+.stat h3{
+    font-size:30px;
+    color:var(--blue);
+}
+
+.stat p{
+    color:var(--muted);
+
+    margin-top:7px;
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+.skills-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(210px,1fr));
+
+    gap:22px;
+}
+
+.skill-card{
+    padding:32px 25px;
+
+    text-align:center;
+
+    background:var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:24px;
+
+    transform-style:preserve-3d;
+
+    transition:.25s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.skill-card:hover{
+    border-color:
+        rgba(0,217,255,.3);
+}
+
+.skill-icon{
+    font-size:42px;
+
+    margin-bottom:18px;
+}
+
+.skill-card h3{
+    margin-bottom:10px;
+}
+
+.skill-card p{
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   PROJECTS
+===================================================== */
+
+.projects-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(290px,1fr));
+
+    gap:25px;
+}
+
+.project-card{
+    min-height:320px;
+
+    padding:32px;
+
+    background:var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:25px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transform-style:preserve-3d;
+
+    transition:.25s;
+
+    cursor:pointer;
+}
+
+.project-card:hover{
+    border-color:
+        rgba(0,217,255,.35);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,217,255,.08);
+}
+
+.project-number{
+    color:var(--blue);
+
+    font-size:11px;
+
+    letter-spacing:3px;
+}
+
+.project-card h3{
+    font-size:23px;
+
+    margin:20px 0 15px;
+}
+
+.project-card p{
+    color:var(--muted);
+
+    line-height:1.75;
+}
+
+.tags{
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-top:25px;
+}
+
+.tag{
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    background:
+        rgba(139,92,246,.10);
+
+    border:
+        1px solid
+        rgba(139,92,246,.18);
+
+    color:#bcaeff;
+
+    font-size:11px;
+}
+
+.click-project{
+    position:absolute;
+
+    bottom:20px;
+
+    right:25px;
+
+    color:#71809a;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+
+/* =====================================================
+   PROJECT POPUP
+===================================================== */
+
+.project-modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.78);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+    z-index:10000;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.4s;
+}
+
+.project-modal.active{
+    opacity:1;
+
+    visibility:visible;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:750px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,18,40,.98),
+            rgba(5,8,22,.98)
+        );
+
+    border:
+        1px solid
+        rgba(0,217,255,.25);
+
+    border-radius:30px;
+
+    padding:45px;
+
+    position:relative;
+
+    transform:
+        translateY(40px)
+        scale(.95);
+
+    transition:.4s;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.6);
+}
+
+.project-modal.active .modal-box{
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.modal-close{
+    position:absolute;
+
+    right:20px;
+
+    top:18px;
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.modal-close:hover{
+    background:#8b5cf6;
+
+    transform:rotate(90deg);
+}
+
+.modal-label{
+    color:var(--blue);
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    margin-bottom:15px;
+}
+
+.modal-box h2{
+    font-size:35px;
+
+    margin-bottom:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #a78bfa,
+            var(--blue)
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.modal-box h3{
+    margin-top:30px;
+
+    margin-bottom:12px;
+
+    color:#c4b5fd;
+}
+
+.modal-box p{
+    color:#aeb8cb;
+
+    line-height:1.9;
+
+    font-size:15px;
+}
+
+.modal-list{
+    padding-left:20px;
+
+    color:#aeb8cb;
+
+    line-height:2;
+}
+
+.modal-tags{
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+
+/* =====================================================
+   EDUCATION
+===================================================== */
+
+.timeline{
+    max-width:850px;
+
+    margin:auto;
+
+    position:relative;
+}
+
+.timeline::before{
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:
+        linear-gradient(
+            var(--purple),
+            var(--blue),
+            transparent
+        );
+}
+
+.timeline-card{
+    margin-left:40px;
+
+    margin-bottom:30px;
+
+    padding:32px;
+
+    background:var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        0 25px 25px 25px;
+
+    position:relative;
+
+    transition:.4s;
+}
+
+.timeline-card::before{
+    content:"";
+
+    position:absolute;
+
+    left:-46px;
+
+    top:32px;
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:var(--blue);
+
+    box-shadow:
+        0 0 20px
+        var(--blue);
+}
+
+.timeline-card:hover{
+    transform:translateX(10px);
+
+    border-color:
+        rgba(0,217,255,.3);
+}
+
+.timeline-card h3{
+    color:#b9a9ff;
+
+    margin-bottom:12px;
+}
+
+.timeline-card p{
+    color:var(--muted);
+
+    line-height:1.8;
+
+    margin:4px 0;
+}
+
+
+/* =====================================================
+   CERTIFICATIONS
+===================================================== */
+
+.cert-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+}
+
+.cert-card{
+    padding:30px;
+
+    background:var(--glass);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:24px;
+
+    transition:.4s;
+}
+
+.cert-card:hover{
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(139,92,246,.35);
+}
+
+.cert-card h3{
+    margin-bottom:12px;
+}
+
+.cert-card p{
+    color:var(--muted);
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   RESUME
+===================================================== */
+
+.resume-box{
+    max-width:950px;
+
+    margin:auto;
+
+    padding:70px 40px;
+
+    text-align:center;
+
+    border-radius:35px;
+
+    border:
+        1px solid
+        rgba(139,92,246,.22);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(139,92,246,.12),
+            transparent 65%
+        ),
+        rgba(255,255,255,.025);
+}
+
+.resume-box h2{
+    font-size:38px;
+}
+
+.resume-box p{
+    color:var(--muted);
+
+    margin:15px 0 30px;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-container{
+    text-align:center;
+
+    max-width:700px;
+
+    margin:auto;
+}
+
+.contact-container p{
+    color:var(--muted);
+
+    line-height:1.8;
+}
+
+.social-links{
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-top:30px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    padding:35px;
+
+    text-align:center;
+
+    color:#68728a;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   REVEAL
+===================================================== */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(70px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.reveal.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+
+/* =====================================================
+   FADE
+===================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px){
+
+    nav{
+        padding:0 5%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        padding:120px 7% 80px;
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:30px;
+    }
+
+    .hero-description{
+        margin:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .hero-visual{
+        width:320px;
+
+        height:320px;
+
+        transform:scale(.8);
+    }
+
+    section{
+        padding:80px 7%;
+    }
+
+    .section-heading h2{
+        font-size:36px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .about-container{
+        padding:30px;
+    }
+
+    .cursor,
+    .cursor-dot{
+        display:none;
+    }
+
+    .modal-box{
+        padding:35px 25px;
+    }
+
+    .modal-box h2{
+        font-size:28px;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:58px;
+
+        letter-spacing:-2px;
+    }
+
+    .hero-role{
+        font-size:22px;
+    }
+
+    .hero-visual{
+        width:280px;
+
+        height:280px;
+
+        transform:scale(.7);
+    }
+
+    .section-heading h2{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-ring"></div>
+
+    <div class="loader-text">
+        INITIALIZING...
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="background">
+
+    <div class="glow glow1"></div>
+
+    <div class="glow glow2"></div>
+
+    <div class="glow glow3"></div>
+
+    <div class="grid-bg"></div>
+
+</div>
+
+<canvas id="particles"></canvas>
+
+
+<!-- =====================================================
+     CURSOR
+===================================================== -->
+
+<div class="cursor"></div>
+
+<div class="cursor-dot"></div>
+
+
+<!-- =====================================================
+     EDIT YOUR DETAILS HERE
+===================================================== -->
+
+<script>
+
+const portfolio = {
+
+    name: "V. Mrudula",
+
+    email: "vangaramrudula09@gmail.com",
+
+    github:
+    "https://github.com/mrudulavangara",
+
+    linkedin:
+    "https://www.linkedin.com/in/mrudula-vangara-8245ba34b",
+
+    resume:
+    "Vangara_Mrudula_Resume.docx",
+
+    about:
+    "I am a 3rd year B.Tech CSE student specializing in Artificial Intelligence and Machine Learning. I am building my skills in software development, data analysis, Python, machine learning and modern web technologies. My goal is to create practical solutions while continuously improving my technical skills."
+
+};
+
+</script>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav id="navbar">
+
+    <div class="logo">
+        VM<span>.</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#about">About</a>
+        </li>
+
+        <li>
+            <a href="#skills">Skills</a>
+        </li>
+
+        <li>
+            <a href="#projects">Projects</a>
+        </li>
+
+        <li>
+            <a href="#education">Education</a>
+        </li>
+
+        <li>
+            <a href="#contact">Contact</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+
+    <div class="hero-content">
+
+        <div class="hero-label">
+
+            <span class="status-dot"></span>
+
+            AVAILABLE FOR OPPORTUNITIES
+
+        </div>
+
+
+        <h1>
+
+            V.
+
+            <span class="gradient">
+                Mrudula
+            </span>
+
+        </h1>
+
+
+        <div class="hero-role">
+
+            <span id="typing"></span>
+
+            <span class="typing-cursor">
+                |
+            </span>
+
+        </div>
+
+
+        <p class="hero-description">
+
+            Building my future with
+
+            <strong>
+                Artificial Intelligence
+            </strong>,
+
+            <strong>
+                Machine Learning
+            </strong>,
+
+            <strong>
+                Data Analytics
+            </strong>
+
+            and
+
+            <strong>
+                Software Development
+            </strong>.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#projects"
+                class="btn btn-primary"
+            >
+                Explore My Work
+            </a>
+
+            <a
+                href="#contact"
+                class="btn"
+            >
+                Let's Connect
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- 3D -->
+
+    <div class="hero-visual">
+
+        <div class="orbit orbit1"></div>
+
+        <div class="orbit orbit2"></div>
+
+
+        <div class="floating-icon icon1">
+            Python
+        </div>
+
+        <div class="floating-icon icon2">
+            AI
+        </div>
+
+        <div class="floating-icon icon3">
+            ML
+        </div>
+
+        <div class="floating-icon icon4">
+            Data
+        </div>
+
+
+        <div class="cube">
+
+
+            <div class="cube-face front">
+                <span>AI</span>
+            </div>
+
+
+            <div class="cube-face back">
+                <span>ML</span>
+            </div>
+
+
+            <div class="cube-face right">
+                <span>PY</span>
+            </div>
+
+
+            <div class="cube-face left">
+                <span>DS</span>
+            </div>
+
+
+            <div class="cube-face top">
+                <span>SQL</span>
+            </div>
+
+
+            <div class="cube-face bottom">
+                <span>HTML</HTML></span>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="scroll-indicator">
+
+        SCROLL
+
+        <div class="scroll-line"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about" class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            ABOUT ME
+        </div>
+
+        <h2>
+            Turning Ideas Into
+            <span>Possibilities</span>
+        </h2>
+
+        <p>
+            A little about my journey
+        </p>
+
+    </div>
+
+
+    <div class="about-container">
+
+        <p id="aboutText"></p>
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <h3>
+                AI
+            </h3>
+
+            <p>
+                Specialization
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>
+                2028
+            </h3>
+
+            <p>
+                Graduation
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>
+                ∞
+            </h3>
+
+            <p>
+                Learning Mindset
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SKILLS
+===================================================== -->
+
+<section id="skills" class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            WHAT I KNOW
+        </div>
+
+        <h2>
+            My <span>Skills</span>
+        </h2>
+
+        <p>
+            Technologies I'm learning and building with
+        </p>
+
+    </div>
+
+
+    <div class="skills-grid">
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                🐍
+            </div>
+
+            <h3>
+                Python
+            </h3>
+
+            <p>
+                Programming, automation,
+                problem solving and ML
+            </p>
+
+        </div>
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                🤖
+            </div>
+
+            <h3>
+                Machine Learning
+            </h3>
+
+            <p>
+                ML fundamentals,
+                classification and regression
+            </p>
+
+        </div>
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                📊
+            </div>
+
+            <h3>
+                Data Analysis
+            </h3>
+
+            <p>
+                R, Excel, statistics,
+                cleaning and visualization
+            </p>
+
+        </div>
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                🗄️
+            </div>
+
+            <h3>
+                SQL
+            </h3>
+
+            <p>
+                Database management
+                and data queries
+            </p>
+
+        </div>
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                🌐
+            </div>
+
+            <h3>
+                Web Development
+            </h3>
+
+            <p>
+                HTML, CSS and JavaScript
+            </p>
+
+        </div>
+
+
+        <div class="skill-card tilt">
+
+            <div class="skill-icon">
+                🔧
+            </div>
+
+            <h3>
+                Git & GitHub
+            </h3>
+
+            <p>
+                Version control and
+                project management
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECTS
+===================================================== -->
+
+<section id="projects" class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            MY WORK
+        </div>
+
+        <h2>
+            Featured <span>Projects</span>
+        </h2>
+
+        <p>
+            Click a project to see more details
+        </p>
+
+    </div>
+
+
+    <div class="projects-grid">
+
+
+        <!-- PROJECT 1 -->
+
+        <div
+            class="project-card tilt"
+            onclick="openProject('insurance')"
+        >
+
+            <div class="project-number">
+                PROJECT 01
+            </div>
+
+            <h3>
+                Medical Insurance
+                Cost Prediction
+            </h3>
+
+            <p>
+                A machine learning project
+                for predicting medical
+                insurance costs.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">
+                    Python
+                </span>
+
+                <span class="tag">
+                    ML
+                </span>
+
+                <span class="tag">
+                    Pandas
+                </span>
+
+            </div>
+
+            <div class="click-project">
+                CLICK TO VIEW →
+            </div>
+
+        </div>
+
+
+        <!-- PROJECT 2 -->
+
+        <div
+            class="project-card tilt"
+            onclick="openProject('Online Hospital Appointment System')"
+        >
+
+            <div class="project-number">
+                PROJECT 02
+            </div>
+
+            <h3>
+                Online Hospital Appointment System
+                Full Stack
+            </h3>
+
+            <p>
+                A full-stack web application developed
+                during my Full Stack Development internship
+                for online hospital appointment management.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">
+                    R
+                </span>
+
+                <span class="tag">
+                    Full Stack
+                </span>
+
+            </div>
+
+            <div class="click-project">
+                CLICK TO VIEW →
+            </div>
+
+        </div>
+
+
+       
+
+
+        <!-- PROJECT 3 -->
+
+        <div
+            class="project-card tilt"
+            onclick="openProject('future')"
+        >
+
+            <div class="project-number">
+                COMING SOON
+            </div>
+
+            <h3>
+                Future AI / ML
+                Project
+            </h3>
+
+            <p>
+                A new project will be
+                added as I continue
+                learning and building.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">
+                    AI
+                </span>
+
+                <span class="tag">
+                    ML
+                </span>
+
+                <span class="tag">
+                    Building
+                </span>
+
+            </div>
+
+            <div class="click-project">
+                CLICK TO VIEW →
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT MODAL
+===================================================== -->
+
+<div
+    class="project-modal"
+    id="projectModal"
+    onclick="closeOutside(event)"
+>
+
+
+    <div class="modal-box">
+
+
+        <button
+            class="modal-close"
+            onclick="closeProject()"
+        >
+            ×
+        </button>
+
+
+        <div
+            class="modal-label"
+            id="modalLabel"
+        >
+        </div>
+
+
+        <h2 id="modalTitle">
+        </h2>
+
+
+        <p id="modalDescription">
+        </p>
+
+
+        <h3>
+            What I Worked On
+        </h3>
+
+
+        <ul
+            class="modal-list"
+            id="modalList"
+        >
+        </ul>
+
+
+        <h3>
+            Technologies
+        </h3>
+
+
+        <div
+            class="modal-tags"
+            id="modalTags"
+        >
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     EDUCATION
+===================================================== -->
+
+<section id="education" class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            EDUCATION
+        </div>
+
+        <h2>
+            My <span>Journey</span>
+        </h2>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-card">
+
+            <h3>
+                B.Tech CSE —
+                Artificial Intelligence
+                & Machine Learning
+            </h3>
+
+            <p>
+                Uttaranchal University
+            </p>
+
+            <p>
+                3rd Year
+            </p>
+
+            <p>
+                Expected Graduation: 2028
+            </p>
+
+            <p>
+                Dehradun, Uttarakhand
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LEARNING
+===================================================== -->
+
+<section class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            BEYOND THE CLASSROOM
+        </div>
+
+        <h2>
+            Learning &
+            <span>Activities</span>
+        </h2>
+
+    </div>
+
+
+    <div class="cert-grid">
+
+
+        <div class="cert-card">
+
+            <h3>
+                Technical Learning
+            </h3>
+
+            <p>
+                Continuously developing knowledge
+                in Python, AI, ML, data analytics
+                and software development.
+            </p>
+
+        </div>
+
+
+        <div class="cert-card">
+
+            <h3>
+                Workshops & Participation
+            </h3>
+
+            <p>
+                Participating in technical workshops,
+                academic activities and learning
+                programs.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RESUME
+===================================================== -->
+
+<section class="reveal">
+
+
+    <div class="resume-box">
+
+        <div class="section-label">
+            RESUME
+        </div>
+
+        <h2>
+            Let's Build Something
+            <span style="color:#8b5cf6;">
+                Great
+            </span>
+        </h2>
+
+        <p>
+            Want to know more about my education,
+            skills and experience?
+        </p>
+
+
+        <a
+            id="resumeButton"
+            href="#"
+            target="_blank"
+            class="btn btn-primary"
+        >
+            View My Resume
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section id="contact" class="reveal">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            CONTACT
+        </div>
+
+        <h2>
+            Let's <span>Connect</span>
+        </h2>
+
+    </div>
+
+
+    <div class="contact-container">
+
+
+        <p>
+
+            I'm interested in software development,
+            data analytics, artificial intelligence
+            and machine learning.
+
+            <br><br>
+
+            Feel free to connect with me.
+
+        </p>
+
+
+        <div class="social-links">
+
+
+            <a
+                id="github"
+                href="#"
+                target="_blank"
+                class="btn"
+            >
+                GitHub
+            </a>
+
+
+            <a
+                id="linkedin"
+                href="#"
+                target="_blank"
+                class="btn"
+            >
+                LinkedIn
+            </a>
+
+
+            <a
+                id="email"
+                href="#"
+                class="btn"
+            >
+                Email Me
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    © 2026 V. Mrudula
+    • AI & ML Portfolio
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   PERSONAL DETAILS
+===================================================== */
+
+document.getElementById("aboutText").textContent =
+portfolio.about;
+
+document.getElementById("github").href =
+portfolio.github;
+
+document.getElementById("linkedin").href =
+portfolio.linkedin;
+
+document.getElementById("email").href =
+"mailto:" + portfolio.email;
+
+document.getElementById("resumeButton").href =
+portfolio.resume;
+
+
+/* =====================================================
+   PROJECT DATA
+===================================================== */
+
+const projects = {
+
+    insurance: {
+
+        label:
+        "PROJECT 01 • MACHINE LEARNING",
+
+        title:
+        "Medical Insurance Cost Prediction",
+
+        description:
+        "A machine learning project focused on predicting medical insurance costs using information about individuals. This project helped me understand the complete basic machine learning workflow from preparing data to building a prediction model.",
+
+        points: [
+
+            "Loaded and explored the medical insurance dataset.",
+
+            "Worked with features such as age, BMI, children and smoking status.",
+
+            "Performed data preparation and preprocessing.",
+
+            "Applied machine learning concepts for prediction.",
+
+            "Practiced evaluating the model and understanding prediction results."
+
+        ],
+
+        technologies: [
+
+            "Python",
+
+            "Pandas",
+
+            "NumPy",
+
+            "Machine Learning"
+
+        ]
+
+    },
+
+
+    ecommerce: {
+
+        label:
+        "PROJECT 02 • DATA ANALYSIS",
+
+        title:
+        "E-Commerce Data Analysis",
+
+        description:
+        "A data analysis project using an e-commerce dataset. I worked with data cleaning, missing values, scaling, outlier detection, grouping, summary statistics and Principal Component Analysis.",
+
+        points: [
+
+            "Imported and explored e-commerce data.",
+
+            "Filtered and selected required rows and columns.",
+
+            "Converted data into suitable numeric formats.",
+
+            "Handled missing values using mean and mode.",
+
+            "Detected duplicate records.",
+
+            "Performed Min-Max scaling.",
+
+            "Performed Z-score standardization.",
+
+            "Worked with robust scaling using median and IQR.",
+
+            "Analyzed minimum, maximum, mean and total values.",
+
+            "Practiced PCA for dimensionality reduction."
+
+        ],
+
+        technologies: [
+
+            "R",
+
+            "dplyr",
+
+            "readxl",
+
+            "Statistics",
+
+            "PCA"
+
+        ]
+
+    },
+
+
+    portfolio: {
+
+        label:
+        "PROJECT 03 • WEB DEVELOPMENT",
+
+        title:
+        "Personal Portfolio Website",
+
+        description:
+        "A personal portfolio website designed to present my education, skills, projects and learning journey in a modern futuristic style.",
+
+        points: [
+
+            "Designed a responsive portfolio interface.",
+
+            "Created an animated futuristic background.",
+
+            "Added interactive 3D elements.",
+
+            "Added project cards with detailed popup windows.",
+
+            "Added scroll-based animations.",
+
+            "Added interactive 3D hover effects.",
+
+            "Created responsive layouts for smaller screens."
+
+        ],
+
+        technologies: [
+
+            "HTML",
+
+            "CSS",
+
+            "JavaScript",
+
+            "3D CSS",
+
+            "Animations"
+
+        ]
+
+    },
+
+
+    future: {
+
+        label:
+        "COMING SOON • AI / ML",
+
+        title:
+        "Future AI / ML Project",
+
+        description:
+        "This section is reserved for a future project. I am currently learning and building my skills before adding another project to my portfolio.",
+
+        points: [
+
+            "Currently learning AI and machine learning concepts.",
+
+            "Building stronger Python fundamentals.",
+
+            "Improving data analysis skills.",
+
+            "Working toward creating more practical projects."
+
+        ],
+
+        technologies: [
+
+            "AI",
+
+            "Machine Learning",
+
+            "Python",
+
+            "Data"
+
+        ]
+
+    }
+
+};
+
+
+/* =====================================================
+   OPEN PROJECT
+===================================================== */
+
+function openProject(projectName){
+
+    const project =
+    projects[projectName];
+
+    document.getElementById(
+        "modalLabel"
+    ).textContent =
+    project.label;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+    project.title;
+
+
+    document.getElementById(
+        "modalDescription"
+    ).textContent =
+    project.description;
+
+
+    const list =
+    document.getElementById(
+        "modalList"
+    );
+
+    list.innerHTML="";
+
+
+    project.points.forEach(function(point){
+
+        const li =
+        document.createElement("li");
+
+        li.textContent=point;
+
+        list.appendChild(li);
+
+    });
+
+
+    const tags =
+    document.getElementById(
+        "modalTags"
+    );
+
+    tags.innerHTML="";
+
+
+    project.technologies.forEach(function(technology){
+
+        const span =
+        document.createElement("span");
+
+        span.className="tag";
+
+        span.textContent=technology;
+
+        tags.appendChild(span);
+
+    });
+
+
+    document.getElementById(
+        "projectModal"
+    ).classList.add("active");
+
+
+    document.body.style.overflow="hidden";
+
+}
+
+
+/* =====================================================
+   CLOSE PROJECT
+===================================================== */
+
+function closeProject(){
+
+    document.getElementById(
+        "projectModal"
+    ).classList.remove("active");
+
+
+    document.body.style.overflow="auto";
+
+}
+
+
+/* =====================================================
+   CLOSE WHEN CLICKING OUTSIDE
+===================================================== */
+
+function closeOutside(event){
+
+    if(
+        event.target ===
+        document.getElementById(
+            "projectModal"
+        )
+    ){
+
+        closeProject();
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key==="Escape"){
+
+            closeProject();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        setTimeout(
+            function(){
+
+                document.getElementById(
+                    "loader"
+                ).style.opacity="0";
+
+
+                setTimeout(
+                    function(){
+
+                        document.getElementById(
+                            "loader"
+                        ).style.display="none";
+
+                    },
+                    800
+                );
+
+            },
+            1000
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TYPING
+===================================================== */
+
+const words=[
+
+    "AI & ML Student",
+
+    "Aspiring Software Developer",
+
+    "Data Analyst",
+
+    "Python Developer",
+
+    "Machine Learning Enthusiast"
+
+];
+
+let wordIndex=0;
+
+let charIndex=0;
+
+let deleting=false;
+
+const typing=
+document.getElementById("typing");
+
+
+function typeText(){
+
+    const word=
+    words[wordIndex];
+
+
+    if(!deleting){
+
+        typing.textContent=
+        word.substring(
+            0,
+            charIndex+1
+        );
+
+        charIndex++;
+
+
+        if(
+            charIndex ===
+            word.length
+        ){
+
+            deleting=true;
+
+            setTimeout(
+                typeText,
+                1500
+            );
+
+            return;
+
+        }
+
+    }
+
+    else{
+
+        typing.textContent=
+        word.substring(
+            0,
+            charIndex-1
+        );
+
+        charIndex--;
+
+
+        if(charIndex===0){
+
+            deleting=false;
+
+            wordIndex++;
+
+
+            if(
+                wordIndex >=
+                words.length
+            ){
+
+                wordIndex=0;
+
+            }
+
+        }
+
+    }
+
+
+    setTimeout(
+        typeText,
+        deleting ? 45 : 90
+    );
+
+}
+
+typeText();
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+const navbar =
+document.getElementById(
+    "navbar"
+);
+
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        if(window.scrollY>50){
+
+            navbar.classList.add(
+                "scrolled"
+            );
+
+        }
+
+        else{
+
+            navbar.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+    }
+);
+
+
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+const canvas =
+document.getElementById(
+    "particles"
+);
+
+const ctx =
+canvas.getContext("2d");
+
+let particles=[];
+
+
+function resizeCanvas(){
+
+    canvas.width =
+    window.innerWidth;
+
+    canvas.height =
+    window.innerHeight;
+
+}
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+for(
+    let i=0;
+    i<100;
+    i++
+){
+
+    particles.push({
+
+        x:
+        Math.random() *
+        window.innerWidth,
+
+        y:
+        Math.random() *
+        window.innerHeight,
+
+        size:
+        Math.random()*2+.4,
+
+        speedX:
+        (Math.random()-.5)*.35,
+
+        speedY:
+        (Math.random()-.5)*.35
+
+    });
+
+}
+
+
+function drawParticles(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    particles.forEach(
+        function(p){
+
+            p.x += p.speedX;
+
+            p.y += p.speedY;
+
+
+            if(
+                p.x<0 ||
+                p.x>canvas.width
+            ){
+
+                p.speedX*=-1;
+
+            }
+
+
+            if(
+                p.y<0 ||
+                p.y>canvas.height
+            ){
+
+                p.speedY*=-1;
+
+            }
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fillStyle =
+            "rgba(139,92,246,.55)";
+
+            ctx.fill();
+
+        }
+    );
+
+
+    for(
+        let i=0;
+        i<particles.length;
+        i++
+    ){
+
+        for(
+            let j=i+1;
+            j<particles.length;
+            j++
+        ){
+
+            const dx =
+            particles[i].x -
+            particles[j].x;
+
+            const dy =
+            particles[i].y -
+            particles[j].y;
+
+            const distance =
+            Math.sqrt(
+                dx*dx+dy*dy
+            );
+
+
+            if(distance<110){
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    particles[i].x,
+                    particles[i].y
+                );
+
+                ctx.lineTo(
+                    particles[j].x,
+                    particles[j].y
+                );
+
+                ctx.strokeStyle =
+                "rgba(0,217,255,.06)";
+
+                ctx.stroke();
+
+            }
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        drawParticles
+    );
+
+}
+
+drawParticles();
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements =
+document.querySelectorAll(
+    ".reveal"
+);
+
+
+function revealOnScroll(){
+
+    const windowHeight =
+    window.innerHeight;
+
+
+    revealElements.forEach(
+        function(element){
+
+            const top =
+            element.getBoundingClientRect()
+            .top;
+
+
+            if(
+                top <
+                windowHeight-100
+            ){
+
+                element.classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+window.addEventListener(
+    "scroll",
+    revealOnScroll
+);
+
+revealOnScroll();
+
+
+/* =====================================================
+   3D CARD TILT
+===================================================== */
+
+const tiltCards =
+document.querySelectorAll(
+    ".tilt"
+);
+
+
+tiltCards.forEach(
+    function(card){
+
+        card.addEventListener(
+            "mousemove",
+            function(e){
+
+                const rect =
+                card.getBoundingClientRect();
+
+
+                const x =
+                e.clientX -
+                rect.left;
+
+
+                const y =
+                e.clientY -
+                rect.top;
+
+
+                const centerX =
+                rect.width/2;
+
+
+                const centerY =
+                rect.height/2;
+
+
+                const rotateX =
+                ((y-centerY)/centerY)*-7;
+
+
+                const rotateY =
+                ((x-centerX)/centerX)*7;
+
+
+                card.style.transform =
+                `
+                perspective(900px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                translateY(-8px)
+                `;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            function(){
+
+                card.style.transform =
+                `
+                perspective(900px)
+                rotateX(0deg)
+                rotateY(0deg)
+                translateY(0)
+                `;
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   HERO PARALLAX
+===================================================== */
+
+const heroVisual =
+document.querySelector(
+    ".hero-visual"
+);
+
+
+document.addEventListener(
+    "mousemove",
+    function(e){
+
+        if(window.innerWidth<900)
+            return;
+
+
+        const x =
+        (e.clientX/
+        window.innerWidth-.5)*15;
+
+
+        const y =
+        (e.clientY/
+        window.innerHeight-.5)*15;
+
+
+        heroVisual.style.transform =
+        `translate(${x}px,${y}px)`;
+
+    }
+);
+
+
+</script>
+
+</body>
+</html>
