@@ -1339,6 +1339,27 @@ section{
 
     margin-top:20px;
 }
+   .project-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.project-links a {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+    transition: 0.3s;
+}
+
+.project-links a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,217,255,.2);
+}
 
 
 /* =====================================================
@@ -2430,6 +2451,7 @@ const portfolio = {
             id="modalTags"
         >
         </div>
+       <div class="project-links" id="modalLinks"></div>
 
 
     </div>
@@ -2939,6 +2961,26 @@ function openProject(projectName){
         tags.appendChild(span);
 
     });
+
+   const links = document.getElementById("modalLinks");
+
+   links.innerHTML = "";
+
+   if (project.github) {
+    links.innerHTML += `
+        <a href="${project.github}" target="_blank">
+            GitHub Repository ↗
+        </a>
+    `;
+  }
+
+if (project.liveDemo) {
+    links.innerHTML += `
+        <a href="${project.liveDemo}" target="_blank">
+            Live Demo ↗
+        </a>
+    `;
+}
 
 
     document.getElementById(
