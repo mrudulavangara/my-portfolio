@@ -202,33 +202,6 @@ body{
 }
 
 
-/* =====================================================
-   CURSOR
-===================================================== */
-
-.cursor{
-    position:fixed;
-    width:22px;
-    height:22px;
-    border:1px solid var(--blue);
-    border-radius:50%;
-    pointer-events:none;
-    z-index:99999;
-    transform:translate(-50%,-50%);
-    transition:.2s;
-}
-
-.cursor-dot{
-    position:fixed;
-    width:5px;
-    height:5px;
-    background:var(--blue);
-    border-radius:50%;
-    pointer-events:none;
-    z-index:99999;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 15px var(--blue);
-}
 
 
 /* =====================================================
@@ -871,13 +844,13 @@ nav.scrolled{
 ===================================================== */
 
 section{
-    padding:110px 9%;
+    padding:78px 9%;
     position:relative;
 }
 
 .section-heading{
     text-align:center;
-    margin-bottom:65px;
+    margin-bottom:38px;
 }
 
 .section-label{
@@ -1061,6 +1034,7 @@ section{
 
 .projects-grid{
     display:grid;
+    align-items:stretch;
 
     grid-template-columns:
         repeat(auto-fit,minmax(290px,1fr));
@@ -1069,7 +1043,7 @@ section{
 }
 
 .project-card{
-    min-height:320px;
+    min-height:290px;
 
     padding:32px;
 
@@ -1339,28 +1313,32 @@ section{
 
     margin-top:20px;
 }
-   .project-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 25px;
-}
 
-.project-links a {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 25px;
-    color: white;
-    text-decoration: none;
-    background: linear-gradient(90deg, #8b5cf6, #6366f1);
-    transition: 0.3s;
-}
 
-.project-links a:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,217,255,.2);
-}
 
+.modal-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:26px;
+}
+.modal-links a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 18px;
+    border-radius:24px;
+    color:white;
+    text-decoration:none;
+    font-size:13px;
+    border:1px solid rgba(0,217,255,.3);
+    background:rgba(0,217,255,.08);
+    transition:.3s;
+}
+.modal-links a:hover{
+    background:rgba(139,92,246,.25);
+    transform:translateY(-3px);
+}
 
 /* =====================================================
    EDUCATION
@@ -1676,7 +1654,7 @@ footer{
     }
 
     section{
-        padding:80px 7%;
+        padding:65px 7%;
     }
 
     .section-heading h2{
@@ -1689,11 +1667,6 @@ footer{
 
     .about-container{
         padding:30px;
-    }
-
-    .cursor,
-    .cursor-dot{
-        display:none;
     }
 
     .modal-box{
@@ -1771,14 +1744,6 @@ footer{
 
 <canvas id="particles"></canvas>
 
-
-<!-- =====================================================
-     CURSOR
-===================================================== -->
-
-<div class="cursor"></div>
-
-<div class="cursor-dot"></div>
 
 
 <!-- =====================================================
@@ -1992,7 +1957,7 @@ const portfolio = {
 
 
             <div class="cube-face bottom">
-                <span>HTML</HTML></span>
+                <span>HTML</span>
             </div>
 
 
@@ -2301,12 +2266,11 @@ const portfolio = {
 
         </div>
 
-
         <!-- PROJECT 2 -->
 
         <div
             class="project-card tilt"
-            onclick="openProject('Online Hospital Appointment System')"
+            onclick="openProject('hospital')"
         >
 
             <div class="project-number">
@@ -2314,20 +2278,66 @@ const portfolio = {
             </div>
 
             <h3>
-                Online Hospital Appointment System
-                Full Stack
+                Online Hospital
+                Appointment System
             </h3>
 
             <p>
-                A full-stack web application developed
-                during my Full Stack Development internship
-                for online hospital appointment management.
+                A deployed full-stack hospital appointment website where
+                patients can submit appointment details online.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">MongoDB</span>
+
+            </div>
+
+            <div class="click-project">
+                CLICK TO VIEW →
+            </div>
+
+        </div>
+
+        <!-- PROJECT 3 -->
+
+        <div
+            class="project-card tilt"
+            onclick="openProject('portfolio')"
+        >
+
+            <div class="project-number">
+                PROJECT 03
+            </div>
+
+            <h3>
+                Personal Portfolio
+                Website
+            </h3>
+
+            <p>
+                A modern animated portfolio
+                website presenting my skills,
+                education and projects.
             </p>
 
             <div class="tags">
 
                 <span class="tag">
-                    Full Stack
+                    HTML
+                </span>
+
+                <span class="tag">
+                    CSS
+                </span>
+
+                <span class="tag">
+                    JavaScript
                 </span>
 
             </div>
@@ -2338,11 +2348,7 @@ const portfolio = {
 
         </div>
 
-
-      
-
-
-        <!-- PROJECT 3 -->
+        <!-- PROJECT 4: FUTURE PROJECT PLACEHOLDER -->
 
         <div
             class="project-card tilt"
@@ -2350,7 +2356,7 @@ const portfolio = {
         >
 
             <div class="project-number">
-                COMING SOON
+                PROJECT 04 • COMING SOON
             </div>
 
             <h3>
@@ -2451,8 +2457,8 @@ const portfolio = {
             id="modalTags"
         >
         </div>
-       <div class="project-links" id="modalLinks"></div>
 
+        <div id="modalLinks" class="modal-links"></div>
 
     </div>
 
@@ -2769,40 +2775,46 @@ const projects = {
             "Machine Learning"
 
         ],
-       github: "https://github.com/mrudulavangara/medical_insurance_ml",
 
-       liveDemo: "https://medicalinsuranceml-oe4ztsy46nqh5jrlinj3f4.streamlit.app/"
+        links: [
+
+            {
+                label: "Live Demo",
+                url: "https://medicalinsuranceml-oe4ztsy46nqh5jrlinj3f4.streamlit.app/"
+            },
+            {
+                label: "GitHub Repository",
+                url: "https://github.com/mrudulavangara/medical_insurance_ml"
+            }
+
+        ]
 
     },
 
+    hospital: {
 
- 
-
-    "Online Hospital Appointment System": {
-
-        label: "PROJECT 02 • FULL STACK",
+        label: "PROJECT 02 • FULL STACK DEVELOPMENT",
 
         title: "Online Hospital Appointment System",
 
-        description:
-        "A full-stack web application developed during my Full Stack Development internship for online hospital appointment management.",
+        description: "A full-stack MediCare web application that allows patients to book hospital appointments online. The frontend is hosted on GitHub Pages, the Node.js and Express backend is deployed on Render, and appointment records are stored in MongoDB Atlas.",
 
         points: [
-            "Developed an online hospital appointment management application.",
-           
-            "Worked on the project during my Full Stack Development internship.",
-           
-            "Created a user-friendly interface for the application."
+            "Created a patient-friendly appointment booking form.",
+            "Built the backend API using Node.js and Express.",
+            "Connected the application to MongoDB Atlas using Mongoose.",
+            "Deployed the frontend using GitHub Pages.",
+            "Deployed the backend using Render.",
+            "Tested live appointment submission and verified that patient details were saved in the database."
         ],
 
         technologies: [
-            "HTML",
-           
-            "CSS",
-           
-            "JavaScript",
-           
-            "Full Stack Development"
+            "HTML", "CSS", "JavaScript", "Node.js", "Express.js", "MongoDB Atlas", "Mongoose", "GitHub Pages", "Render"
+        ],
+
+        links: [
+            { label: "Live Website", url: "https://mrudulavangara.github.io/Online-Hospital-Appointment-System/" },
+            { label: "GitHub Repository", url: "https://github.com/mrudulavangara/Online-Hospital-Appointment-System" }
         ]
 
     },
@@ -2962,25 +2974,17 @@ function openProject(projectName){
 
     });
 
-   const links = document.getElementById("modalLinks");
+    const modalLinks = document.getElementById("modalLinks");
+    modalLinks.innerHTML = "";
 
-   links.innerHTML = "";
-
-   if (project.github) {
-    links.innerHTML += `
-        <a href="${project.github}" target="_blank">
-            GitHub Repository ↗
-        </a>
-    `;
-  }
-
-if (project.liveDemo) {
-    links.innerHTML += `
-        <a href="${project.liveDemo}" target="_blank">
-            Live Demo ↗
-        </a>
-    `;
-}
+    (project.links || []).forEach(function(link){
+        const anchor = document.createElement("a");
+        anchor.href = link.url;
+        anchor.textContent = link.label;
+        anchor.target = "_blank";
+        anchor.rel = "noopener noreferrer";
+        modalLinks.appendChild(anchor);
+    });
 
 
     document.getElementById(
@@ -3221,190 +3225,6 @@ window.addEventListener(
 );
 
 
-
-
-/* =====================================================
-   PARTICLES
-===================================================== */
-
-const canvas =
-document.getElementById(
-    "particles"
-);
-
-const ctx =
-canvas.getContext("2d");
-
-let particles=[];
-
-
-function resizeCanvas(){
-
-    canvas.width =
-    window.innerWidth;
-
-    canvas.height =
-    window.innerHeight;
-
-}
-
-resizeCanvas();
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-
-for(
-    let i=0;
-    i<100;
-    i++
-){
-
-    particles.push({
-
-        x:
-        Math.random() *
-        window.innerWidth,
-
-        y:
-        Math.random() *
-        window.innerHeight,
-
-        size:
-        Math.random()*2+.4,
-
-        speedX:
-        (Math.random()-.5)*.35,
-
-        speedY:
-        (Math.random()-.5)*.35
-
-    });
-
-}
-
-
-function drawParticles(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    particles.forEach(
-        function(p){
-
-            p.x += p.speedX;
-
-            p.y += p.speedY;
-
-
-            if(
-                p.x<0 ||
-                p.x>canvas.width
-            ){
-
-                p.speedX*=-1;
-
-            }
-
-
-            if(
-                p.y<0 ||
-                p.y>canvas.height
-            ){
-
-                p.speedY*=-1;
-
-            }
-
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.size,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fillStyle =
-            "rgba(139,92,246,.55)";
-
-            ctx.fill();
-
-        }
-    );
-
-
-    for(
-        let i=0;
-        i<particles.length;
-        i++
-    ){
-
-        for(
-            let j=i+1;
-            j<particles.length;
-            j++
-        ){
-
-            const dx =
-            particles[i].x -
-            particles[j].x;
-
-            const dy =
-            particles[i].y -
-            particles[j].y;
-
-            const distance =
-            Math.sqrt(
-                dx*dx+dy*dy
-            );
-
-
-            if(distance<110){
-
-                ctx.beginPath();
-
-                ctx.moveTo(
-                    particles[i].x,
-                    particles[i].y
-                );
-
-                ctx.lineTo(
-                    particles[j].x,
-                    particles[j].y
-                );
-
-                ctx.strokeStyle =
-                "rgba(0,217,255,.06)";
-
-                ctx.stroke();
-
-            }
-
-        }
-
-    }
-
-
-    requestAnimationFrame(
-        drawParticles
-    );
-
-}
-
-drawParticles();
-
-
 /* =====================================================
    SCROLL REVEAL
 ===================================================== */
@@ -3564,6 +3384,7 @@ document.addEventListener(
 
     }
 );
+
 
 
 </script>
